@@ -3,12 +3,20 @@
 
 namespace tinypengine {
 
-	Node::Node() {
-
+	Node::Node(const std::string& name) {
+		//initLogger();
+		
+		init(name);
 	}
 
 	Node::~Node() {
 
+	}
+	
+	void Node::init(const std::string& name) {
+		this->name = name;
+		
+		
 	}
 
 }
