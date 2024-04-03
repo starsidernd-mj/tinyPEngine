@@ -7,6 +7,8 @@ find_package(OpenGL REQUIRED)
 # Add source files
 set(SOURCES
     src/main.cpp
+    src/Node.cpp
+    src/Timer.cpp
     # Add more source files here if needed
 )
 
@@ -16,6 +18,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 # Include directories
 include_directories(${OPENGL_INCLUDE_DIRS})
+
+# Include source headers
+include_directories(${PROJECT_SOURCE_DIR}/include)
 
 # Link directories
 link_directories(${OPENGL_LIBRARY_DIRS})
