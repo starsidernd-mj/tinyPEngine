@@ -6,7 +6,12 @@
 //using namespace tinypengine;
 
 int main() {
-    tinypengine::Renderer renderer(800, 600, "TinyPEngine");
+	//tinypengine::RenderBase* renderBase;
+	tinypengine::Renderer renderer(800, 600, "TinyPEngine");
+	//renderBase = &renderer;
+	
+    renderer.debugTest();
+    //renderBase->debugTest();
     
     if(!renderer.init()) {
     	return -1;

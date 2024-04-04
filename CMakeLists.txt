@@ -14,6 +14,7 @@ find_package(GLEW REQUIRED)
 set(SOURCES
     src/Node.cpp
     src/Timer.cpp
+    src/RenderBase.cpp
     src/Renderer.cpp
     src/main.cpp
     # Add more source files here if needed
@@ -36,4 +37,4 @@ link_directories(${OPENGL_LIBRARY_DIRS})
 add_executable(tinyPEngine ${SOURCES})
 
 # Link libraries
-target_link_libraries(tinyPEngine ${OPENGL_LIBRARIES} glfw ${GLEW_LIBRARIES})
+target_link_libraries(tinyPEngine glfw ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
