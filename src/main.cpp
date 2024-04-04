@@ -5,13 +5,10 @@
 
 //using namespace tinypengine;
 
-int main() {
-	//tinypengine::RenderBase* renderBase;
-	tinypengine::Renderer renderer(800, 600, "TinyPEngine");
-	//renderBase = &renderer;
-	
+int main(int argc, char** argv) {
+	//glutInit(&argc, argv);
+	tinypengine::Renderer renderer(800, 600, "TinyPEngine", argc, argv);
     renderer.debugTest();
-    //renderBase->debugTest();
     
     if(!renderer.init()) {
     	return -1;
@@ -22,3 +19,4 @@ int main() {
     
     return 0;
 }
+

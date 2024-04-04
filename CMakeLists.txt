@@ -10,6 +10,9 @@ find_package(glfw3 REQUIRED)
 # Add GLEW library
 find_package(GLEW REQUIRED)
 
+# Add GLUT library
+find_package(GLUT REQUIRED)
+
 # Add source files
 set(SOURCES
     src/Node.cpp
@@ -25,7 +28,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 # Include directories
-include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
+include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
 
 # Include source headers
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -37,4 +40,4 @@ link_directories(${OPENGL_LIBRARY_DIRS})
 add_executable(tinyPEngine ${SOURCES})
 
 # Link libraries
-target_link_libraries(tinyPEngine glfw ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+target_link_libraries(tinyPEngine glfw ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})

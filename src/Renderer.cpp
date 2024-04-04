@@ -3,7 +3,7 @@
 
 namespace tinypengine {
 
-	Renderer::Renderer(int width, int height, const char* title) : RenderBase(width, height, title) {};
+	Renderer::Renderer(int width, int height, const char* title, int argv, char** argc) : RenderBase(width, height, title, argv, argc) {};
 
 	void Renderer::render() {
 		
