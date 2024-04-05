@@ -12,5 +12,7 @@ namespace tinypengine {
 	
 		virtual void render() override;
 		virtual void debugTest() override;
+		
+		void s_drawCube();
 	};
 }
