@@ -8,9 +8,6 @@
 
 namespace tinypengine {
 
-//static GLfloat cameraPosition[3];
-//static GLfloat cameraRotation[3];
-
 	class RenderBase {			
 	public:
 		RenderBase(int width, int height, const char* title, int argc, char** argv) : m_width(width), m_height(height), m_title(title), m_window(nullptr), m_argc(argc), m_argv(argv) {};
@@ -26,8 +23,8 @@ namespace tinypengine {
 		//static GLfloat cameraPosition[3] = {0.0f, 0.0f, 5.0f};
 		//static GLfloat cameraRotation[3] = {0.0f, 0.0f, 0.0f};
 		
-		static GLfloat cameraPosition[3];
-		static GLfloat cameraRotation[3];
+		GLfloat cameraPosition[3] = {0.0f, 0.0f, 5.0f};
+		GLfloat cameraRotation[3] = {0.0f, 0.0f, 0.0f};
 		
 		//static GLfloat lastX = 400, lastY = 300;
 		//static bool firstMouse = true;
@@ -40,6 +37,7 @@ namespace tinypengine {
 		
 		void processInput();
 		
+		GLFWwindow* getWindow();
 		
 	private:
 		
