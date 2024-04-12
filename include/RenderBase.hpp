@@ -20,25 +20,17 @@ namespace tinypengine {
 		virtual void debugTest();
 		virtual void set_callbacks();
 		
-		//static GLfloat cameraPosition[3] = {0.0f, 0.0f, 5.0f};
-		//static GLfloat cameraRotation[3] = {0.0f, 0.0f, 0.0f};
-		
 		GLfloat cameraPosition[3] = {0.0f, 0.0f, 5.0f};
 		GLfloat cameraRotation[3] = {0.0f, 0.0f, 0.0f};
 		
-		//static GLfloat lastX = 400, lastY = 300;
-		//static bool firstMouse = true;
-		GLfloat lastX, lastY;
-		bool firstMouse;
-		
-		//static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
-		//static void mouse_callback(GLFWwindow *window, double xpos, double ypos);
-		//static void error_callback(int error, const char* desc);
+		GLfloat lastX= 400, lastY = 300;
+		bool firstMouse = true;
 		
 		void processInput();
 		
 		GLFWwindow* getWindow();
 		bool escape = false;
+		
 	private:
 		
 	protected:

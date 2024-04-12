@@ -11,12 +11,6 @@ namespace tinypengine {
 		// set error callback
 		glfwSetErrorCallback(error_callback);
 		
-		// set mouse movement callback
-		//glfwSetCursorPosCallback(m_window, mouse_callback);
-		
-		// set keyboard callback
-		//glfwSetKeyCallback(m_window, key_callback);
-		
 		// Set callbacks
 		set_callbacks();
 	

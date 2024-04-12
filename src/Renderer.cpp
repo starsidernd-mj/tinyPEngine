@@ -6,7 +6,6 @@ namespace tinypengine {
 	Renderer::Renderer(int width, int height, const char* title, int argc, char** argv) : RenderBase(width, height, title, argc, argv) {};
 
 	void Renderer::render() {
-		//std::cout << "Renderer render" << std::endl;
 		
 		// Clear color buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
