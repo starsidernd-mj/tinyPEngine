@@ -10,6 +10,12 @@ namespace tinypengine {
 		
 		// Clear color buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		
+		// Apply camera rotation transformations
+		glRotatef(cameraRotation[0], 1.0f, 0.0f, 0.0f);
+		glRotatef(cameraRotation[1], 0.0f, 1.0f, 0.0f);
+		glTranslatef(-cameraPosition[0], -cameraPosition[1], -cameraPosition[2]);
 		
 		// Set up the viewport
 		glViewport(0, 0, m_width, m_height);
@@ -27,12 +33,25 @@ namespace tinypengine {
 		// Draw cube
 		s_drawCube();
 		
-		//glfwSwapBuffers(m_window);
-		
 	}
 	
 	void Renderer::debugTest() {
 		std::cout << "Debug from Renderer" << std::endl;
+	}
+	
+	void Renderer::set_callbacks() {
+		std::cout << "Setting callbacks" << std::endl;
+		
+		// set error callback
+		//glfwSetErrorCallback(error_callback);
+	
+		// set mouse movement callback
+		//glfwSetCursorPosCallback(m_window, mouse_callback);
+	
+		// set keyboard callback
+		//glfwSetKeyCallback(m_window, key_callback);
+	
+		std::cout << "Callbacks set" << std::endl;
 	}
 	
 	void Renderer::s_drawCube() {

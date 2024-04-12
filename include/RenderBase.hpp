@@ -4,8 +4,12 @@
 #include <GLFW/glfw3.h>
 #include <GL/freeglut.h>
 #include <iostream>
+#include <algorithm>
 
 namespace tinypengine {
+
+//static GLfloat cameraPosition[3];
+//static GLfloat cameraRotation[3];
 
 	class RenderBase {			
 	public:
@@ -17,6 +21,27 @@ namespace tinypengine {
 		
 		virtual void render();
 		virtual void debugTest();
+		virtual void set_callbacks();
+		
+		//static GLfloat cameraPosition[3] = {0.0f, 0.0f, 5.0f};
+		//static GLfloat cameraRotation[3] = {0.0f, 0.0f, 0.0f};
+		
+		static GLfloat cameraPosition[3];
+		static GLfloat cameraRotation[3];
+		
+		//static GLfloat lastX = 400, lastY = 300;
+		//static bool firstMouse = true;
+		static GLfloat lastX, lastY;
+		static bool firstMouse;
+		
+		//static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+		//static void mouse_callback(GLFWwindow *window, double xpos, double ypos);
+		//static void error_callback(int error, const char* desc);
+		
+		void processInput();
+		
+		
+	private:
 		
 	protected:
 		int m_width;
