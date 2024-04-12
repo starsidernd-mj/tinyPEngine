@@ -28,8 +28,8 @@ namespace tinypengine {
 		
 		//static GLfloat lastX = 400, lastY = 300;
 		//static bool firstMouse = true;
-		static GLfloat lastX, lastY;
-		static bool firstMouse;
+		GLfloat lastX, lastY;
+		bool firstMouse;
 		
 		//static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 		//static void mouse_callback(GLFWwindow *window, double xpos, double ypos);
@@ -38,7 +38,7 @@ namespace tinypengine {
 		void processInput();
 		
 		GLFWwindow* getWindow();
-		
+		bool escape = false;
 	private:
 		
 	protected:
