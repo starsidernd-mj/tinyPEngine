@@ -12,9 +12,10 @@ namespace tinypengine {
 		glLoadIdentity();
 		
 		// Apply camera rotation transformations
-		glRotatef(cameraRotation[0], 1.0f, 0.0f, 0.0f);
-		glRotatef(cameraRotation[1], 0.0f, 1.0f, 0.0f);
-		glTranslatef(-cameraPosition[0], -cameraPosition[1], -cameraPosition[2]);
+		//glRotatef(cameraRotation.x, 1.0f, 0.0f, 0.0f);
+		//glRotatef(cameraRotation.y, 0.0f, 1.0f, 0.0f);
+		//glRotatef(cameraRotation.z, 0.0f, 0.0f, 1.0f);
+		//glTranslatef(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
 		
 		// Set up the viewport
 		glViewport(0, 0, m_width, m_height);
@@ -27,11 +28,11 @@ namespace tinypengine {
 		// Set up modelview matrix
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0);
+		// Look in the direction of the cameraTarget from the cameraPosition, with reference to cameraUp
+		gluLookAt(cameraPosition.x, cameraPosition.y, cameraPosition.z, cameraTarget.x, cameraTarget.y, cameraTarget.z, cameraUp.x, cameraUp.y, cameraUp.z);
 		
 		// Draw cube
 		s_drawCube();
-		
 	}
 	
 	void Renderer::debugTest() {

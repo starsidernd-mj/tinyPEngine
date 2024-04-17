@@ -40,6 +40,7 @@ namespace tinypengine {
 		
 		//ensure we can capture inputs
 		glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		
 		//enable depth test
 		glEnable(GL_DEPTH_TEST);
@@ -50,7 +51,7 @@ namespace tinypengine {
 
 	void RenderBase::renderLoop() {
 		// Loop until the user closes the window
-		while(!glfwWindowShouldClose(m_window)) {
+		while(!glfwWindowShouldClose(m_window) && !escape) {
 			// Poll for and process events
 			glfwPollEvents();
 			
@@ -59,6 +60,19 @@ namespace tinypengine {
 			
 			// Render here
 			render();
+			
+			// set up view matrix
+			view = glm::lookAt(cameraPosition, cameraPosition + cameraDirection, cameraUp);
+			
+			// update cameraDirection
+			cameraDirection = glm::normalize(cameraTarget - cameraPosition);
+			// apply rotations to camera direction
+			cameraDirection = glm::rotate(cameraDirection, glm::radians(cameraRotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+			cameraDirection = glm::rotate(cameraDirection, glm::radians(cameraRotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+			cameraDirection = glm::rotate(cameraDirection, glm::radians(cameraRotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+			
+			// update cameraTarget
+			cameraTarget = cameraPosition + cameraDirection;
 			
 			// Swap front and back buffers
 			glfwSwapBuffers(m_window);
