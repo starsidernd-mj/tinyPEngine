@@ -9,7 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include "Camera.hpp"
-#include "Node.hpp"
+//#include "Node.hpp"
+#include "NodeSphere.hpp"
 
 namespace tinypengine {
 

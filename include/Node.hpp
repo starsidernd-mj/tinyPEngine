@@ -27,6 +27,8 @@ namespace tinypengine {
 		virtual void draw();
 		virtual void drawCube();
 		
+		void normalize(GLfloat* v);
+		
 		void addNode(Node* node);
 		
 		bool debug = 0;
