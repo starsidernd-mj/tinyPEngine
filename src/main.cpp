@@ -11,31 +11,31 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 	
 	if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
 	    renderer->cameraPosition += cameraSpeed * renderer->cameraDirection;
-	    std::cout << "Pressed key W" << std::endl;
+	    //std::cout << "Pressed key W" << std::endl;
 	}
 	if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
 	    renderer->cameraPosition -= cameraSpeed * renderer->cameraDirection;
-	    std::cout << "Pressed key S" << std::endl;
+	    //std::cout << "Pressed key S" << std::endl;
 	}
 	if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-	    renderer->cameraPosition -= glm::normalize(glm::cross(renderer->cameraDirection, renderer->cameraUp)) * cameraSpeed;
-	    std::cout << "Pressed key A" << std::endl;
+	    renderer->cameraPosition += cameraSpeed * renderer->cameraRight;
+	    //std::cout << "Pressed key A" << std::endl;
 	}
 	if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-	    renderer->cameraPosition += glm::normalize(glm::cross(renderer->cameraDirection, renderer->cameraUp)) * cameraSpeed;
-	    std::cout << "Pressed key D" << std::endl;
+	    renderer->cameraPosition -= cameraSpeed * renderer->cameraRight;
+	    //std::cout << "Pressed key D" << std::endl;
 	}
 	if (key == GLFW_KEY_Q && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-		renderer->cameraPosition += glm::normalize(renderer->cameraDirection - renderer->cameraUp) * cameraSpeed;
-		std::cout << "Pressed key Q" << std::endl;
+		renderer->cameraPosition += cameraSpeed * renderer->cameraUp;
+		//std::cout << "Pressed key Q" << std::endl;
 	}
 	if (key == GLFW_KEY_Z && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-		renderer->cameraPosition -= glm::normalize(renderer->cameraDirection - renderer->cameraUp) * cameraSpeed;
-		std::cout << "Pressed key Z" << std::endl;
+		renderer->cameraPosition -= cameraSpeed * renderer->cameraUp;
+		//std::cout << "Pressed key Z" << std::endl;
 	}
 	if (key == GLFW_KEY_ESCAPE && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
 		renderer->escape = true;
-		std::cout << "Pressed key esc" << std::endl;
+		//std::cout << "Pressed key esc" << std::endl;
 	}
 	
 	//std::cout << "Position: " << renderer->cameraPosition[0] << ", " << renderer->cameraPosition[1] << ", " << renderer->cameraPosition[2] << std::endl;
@@ -52,36 +52,41 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 }
 
 void mouse_callback(GLFWwindow *window, double xpos, double ypos) {
-		if(renderer->firstMouse) {
-			renderer->lastX = GAME_WIDTH/2;
-			renderer->lastY = GAME_HEIGHT/2;
-			renderer->firstMouse = false;
-		}
-		
-		GLfloat xoffset = xpos - renderer->lastX;
-		GLfloat yoffset = renderer->lastY - ypos;
-		renderer->lastX = xpos;
-		renderer->lastY = ypos;
-		
-		GLfloat sensitivity = 0.05f;
-		xoffset *= sensitivity;
-		yoffset *= sensitivity;
-		
-		renderer->yaw += xoffset;
-		renderer->pitch += yoffset;
-		
-		if(renderer->pitch > 89.0f) renderer->pitch = 89.0f;
-		if(renderer->pitch < -89.0f) renderer->pitch = -89.0f;
-		
-		glm::vec3 front;
-		front.x = cos(glm::radians(renderer->yaw)) * cos(glm::radians(renderer->pitch));
-		front.y = sin(glm::radians(renderer->pitch));
-		front.z = sin(glm::radians(renderer->yaw)) * cos(glm::radians(renderer->pitch));
-		renderer->cameraDirection = glm::normalize(front);
-		
-		//std::cout << "Rotation: " << renderer->cameraRotation.x << ", " << renderer->cameraRotation.y << ", " << renderer->cameraRotation.z << std::endl;
-		std::cout << "Pitch: " << renderer->pitch << ", Yaw: " << renderer->yaw << std::endl;
+	if(renderer->firstMouse) {
+		renderer->lastX = GAME_WIDTH/2;
+		renderer->lastY = GAME_HEIGHT/2;
+		renderer->firstMouse = false;
 	}
+	
+	GLfloat xoffset = xpos - renderer->lastX;
+	GLfloat yoffset;
+	if(renderer->mouseInvert) {
+		yoffset = ypos - renderer->lastY;
+	} else {
+		yoffset = renderer->lastY - ypos;
+	}
+	renderer->lastX = xpos;
+	renderer->lastY = ypos;
+	
+	xoffset *= renderer->cameraSensitivity;
+	yoffset *= renderer->cameraSensitivity;
+	
+	renderer->yaw += xoffset;
+	renderer->pitch += yoffset;
+	
+	if(renderer->pitch > 89.0f) renderer->pitch = 89.0f;
+	if(renderer->pitch < -89.0f) renderer->pitch = -89.0f;
+	
+	//std::cout << "Pitch: " << renderer->pitch << ", Yaw: " << renderer->yaw << std::endl;
+}
+	
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+	renderer->fov -= (float)yoffset;
+	if(renderer->fov < 1.0f)
+		renderer->fov = 1.0f;
+	if(renderer->fov > 45.0f)
+		renderer->fov = 45.0f;
+}
 
 int main(int argc, char** argv) {
 	renderer = new tinypengine::Renderer(GAME_WIDTH, GAME_HEIGHT, "TinyPEngine test1", argc, argv);	
@@ -98,6 +103,9 @@ int main(int argc, char** argv) {
 	
 	// set keyboard callback
 	glfwSetKeyCallback(renderer->getWindow(), key_callback);
+	
+	// set mouse scrolling callback
+	glfwSetScrollCallback(renderer->getWindow(), scroll_callback);
     
     //renderer->s_drawCube();
     renderer->renderLoop();

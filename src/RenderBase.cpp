@@ -58,21 +58,20 @@ namespace tinypengine {
 			if(escape)
 				break;
 			
+			// Update logic
+			update();
+			
+			// Update camera vectors
+			updateVectors();
+			
 			// Render here
 			render();
 			
 			// set up view matrix
-			view = glm::lookAt(cameraPosition, cameraPosition + cameraDirection, cameraUp);
+			view = glm::lookAt(cameraPosition, cameraDirection, cameraUp);
 			
-			// update cameraDirection
-			cameraDirection = glm::normalize(cameraTarget - cameraPosition);
-			// apply rotations to camera direction
-			cameraDirection = glm::rotate(cameraDirection, glm::radians(cameraRotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-			cameraDirection = glm::rotate(cameraDirection, glm::radians(cameraRotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-			cameraDirection = glm::rotate(cameraDirection, glm::radians(cameraRotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-			
-			// update cameraTarget
-			cameraTarget = cameraPosition + cameraDirection;
+			// Draw cube
+			s_drawCube();
 			
 			// Swap front and back buffers
 			glfwSwapBuffers(m_window);
@@ -82,6 +81,25 @@ namespace tinypengine {
 	void RenderBase::cleanup() {
 		glfwTerminate();
 	}
+	
+	void RenderBase::updateVectors() {
+		// Create a vector looking forward based on yaw and pitch
+		glm::vec3 front;
+		front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        front.y = sin(glm::radians(pitch));
+        front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        
+        cameraDirection = glm::normalize(front);
+        // also re-calculate the Right and Up vector
+        // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+        cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+        cameraUp    = glm::cross(cameraDirection, cameraRight);
+        
+        cameraFront = cameraPosition + cameraDirection;
+        
+	}
+	
+	void RenderBase::update() {}
 	
 	void RenderBase::render() {}
 	
@@ -93,6 +111,63 @@ namespace tinypengine {
 	
 	GLFWwindow* RenderBase::getWindow() {
 		return m_window;
+	}
+
+	void RenderBase::s_drawCube() {
+		//std::cout << "drawing cube" << std::endl;
+		// Front face
+		glBegin(GL_QUADS);
+		glColor3f(1.0f, 0.0f, 0.0f); // Red
+		glVertex3f(-1.0f, -1.0f, 1.0f);
+		glVertex3f(1.0f, -1.0f, 1.0f);
+		glVertex3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(-1.0f, 1.0f, 1.0f);
+		//glEnd();
+
+		// Back face
+		//glBegin(GL_QUADS);
+		glColor3f(0.0f, 1.0f, 0.0f); // Green
+		glVertex3f(-1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, 1.0f, -1.0f);
+		glVertex3f(-1.0f, 1.0f, -1.0f);
+		//glEnd();
+
+		// Top face
+		//glBegin(GL_QUADS);
+		glColor3f(0.0f, 0.0f, 1.0f); // Blue
+		glVertex3f(-1.0f, 1.0f, -1.0f);
+		glVertex3f(1.0f, 1.0f, -1.0f);
+		glVertex3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(-1.0f, 1.0f, 1.0f);
+		//glEnd();
+
+		// Bottom face
+		//glBegin(GL_QUADS);
+		glColor3f(1.0f, 1.0f, 0.0f); // Yellow
+		glVertex3f(-1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, -1.0f, 1.0f);
+		glVertex3f(-1.0f, -1.0f, 1.0f);
+		//glEnd();
+
+		// Left face
+		//glBegin(GL_QUADS);
+		glColor3f(1.0f, 0.0f, 1.0f); // Magenta
+		glVertex3f(-1.0f, -1.0f, -1.0f);
+		glVertex3f(-1.0f, 1.0f, -1.0f);
+		glVertex3f(-1.0f, 1.0f, 1.0f);
+		glVertex3f(-1.0f, -1.0f, 1.0f);
+		//glEnd();
+
+		// Right face
+		//glBegin(GL_QUADS);
+		glColor3f(0.0f, 1.0f, 1.0f); // Cyan
+		glVertex3f(1.0f, -1.0f, -1.0f);
+		glVertex3f(1.0f, 1.0f, -1.0f);
+		glVertex3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(1.0f, -1.0f, 1.0f);
+		glEnd();
 	}
 
 }
