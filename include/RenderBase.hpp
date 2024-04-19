@@ -35,9 +35,11 @@ namespace tinypengine {
 		bool escape = false;
 		
 		Camera *camera;
-		Node *rootNode;
+		
+		Node* getRootNode();
 		
 	private:
+		Node *rootNode;
 		
 	protected:
 		int m_width;

@@ -3,6 +3,7 @@
 
 tinypengine::Renderer *renderer;
 tinypengine::Camera *camera;
+tinypengine::Node *rootNode;
 
 int GAME_WIDTH = 800;
 int GAME_HEIGHT = 600;
@@ -75,6 +76,18 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
 		renderer->camera->fov = 45.0f;
 }
 
+void init() {
+	rootNode = renderer->getRootNode();
+	
+	tinypengine::Node *debugNode = new tinypengine::Node("debug", glm::vec3(0, 0, 0));
+	debugNode->debug = true;
+	rootNode->addNode(debugNode);
+	
+	tinypengine::Node *testNode = new tinypengine::Node("test", glm::vec3(1, 1, 1));
+	testNode->debug = true;
+	rootNode->addNode(testNode);
+}
+
 int main(int argc, char** argv) {
 	renderer = new tinypengine::Renderer(GAME_WIDTH, GAME_HEIGHT, "TinyPEngine test1", argc, argv);
 	camera = renderer->camera;
@@ -94,8 +107,10 @@ int main(int argc, char** argv) {
 	
 	// set mouse scrolling callback
 	glfwSetScrollCallback(renderer->getWindow(), scroll_callback);
+	
+	// main init
+	init();
     
-    //renderer->s_drawCube();
     renderer->renderLoop();
     renderer->cleanup();
     

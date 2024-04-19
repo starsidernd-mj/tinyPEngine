@@ -13,18 +13,22 @@ namespace tinypengine {
 	class Node {
 	private:
 		std::string name;
+		glm::vec3 n_position = {0.0f, 0.0f, 0.0f};
+		glm::vec3 n_rotation = {0.0f, 0.0f, 0.0f};
 	
-		std::vector<Node*> m_children;
-		int m_child_count = 0;
-	
+		std::vector<Node*> n_children;
 	
 	public:
-		Node(const std::string& name);
+		Node(const std::string& name, glm::vec3 pos);
 		virtual ~Node();
 		
 		void init(const std::string& name);
+		virtual void update();
 		virtual void draw();
 		virtual void drawCube();
-	
+		
+		void addNode(Node* node);
+		
+		bool debug = 0;
 	};
 }

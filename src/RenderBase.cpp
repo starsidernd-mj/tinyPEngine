@@ -50,7 +50,7 @@ namespace tinypengine {
 		camera = new Camera(m_width, m_height);
 		
 		// Create root Node
-		rootNode = new Node("root");
+		rootNode = new Node("root", glm::vec3(0.0f, 0.0f, 0.0f));
 
 		return 1;		
 	}
@@ -66,6 +66,9 @@ namespace tinypengine {
 			
 			// Update logic
 			update();
+			
+			// Update node tree
+			rootNode->update();
 			
 			// Update camera vectors
 			camera->updateVectors();
@@ -101,6 +104,10 @@ namespace tinypengine {
 	
 	GLFWwindow* RenderBase::getWindow() {
 		return m_window;
+	}
+	
+	Node* RenderBase::getRootNode() {
+		return rootNode;
 	}
 
 	void RenderBase::s_drawCube() {
