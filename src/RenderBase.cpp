@@ -45,6 +45,9 @@ namespace tinypengine {
 		//enable depth test
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
+		
+		//Create camera
+		camera = new Camera(m_width, m_height);
 
 		return 1;		
 	}
@@ -62,13 +65,11 @@ namespace tinypengine {
 			update();
 			
 			// Update camera vectors
-			updateVectors();
+			camera->updateVectors();
 			
 			// Render here
 			render();
-			
-			// set up view matrix
-			view = glm::lookAt(cameraPosition, cameraDirection, cameraUp);
+			camera->render();
 			
 			// Draw cube
 			s_drawCube();
@@ -80,23 +81,6 @@ namespace tinypengine {
 	
 	void RenderBase::cleanup() {
 		glfwTerminate();
-	}
-	
-	void RenderBase::updateVectors() {
-		// Create a vector looking forward based on yaw and pitch
-		glm::vec3 front;
-		front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-        front.y = sin(glm::radians(pitch));
-        front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-        
-        cameraDirection = glm::normalize(front);
-        // also re-calculate the Right and Up vector
-        // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-        cameraRight = glm::normalize(glm::cross(up, cameraDirection));
-        cameraUp    = glm::cross(cameraDirection, cameraRight);
-        
-        cameraFront = cameraPosition + cameraDirection;
-        
 	}
 	
 	void RenderBase::update() {}

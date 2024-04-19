@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
+#include "Camera.hpp"
 
 namespace tinypengine {
 
@@ -26,32 +27,14 @@ namespace tinypengine {
 		virtual void render();
 		virtual void debugTest();
 		virtual void set_callbacks();
+		
 		void s_drawCube();
-		
-		glm::vec3 up 				= glm::vec3(0.0f, 1.0f, 0.0f);
-		
-		glm::vec3 cameraPosition 	= glm::vec3(0.0f, 0.0f, 10.0f);
-		glm::vec3 cameraDirection 	= glm::vec3(0.0f, 0.0f, -1.0f);
-		glm::vec3 cameraUp 			= glm::vec3(0.0f, 0.0f, 0.0f);
-		glm::vec3 cameraRight 		= glm::vec3(0.0f, 0.0f, 0.0f);
-		glm::vec3 cameraFront		= glm::vec3(0.0f, 0.0f, 0.0f);
-		
-		float cameraSpeed = 0.05f;
-		float cameraSensitivity = 0.05f;
-		bool mouseInvert = false;
-		glm::mat4 view;
-		
-		GLfloat pitch = 0.0f;
-		GLfloat yaw = -90.0f;
-		GLfloat fov = 45.0f;
-		
-		GLfloat lastX= 400, lastY = 300;
-		bool firstMouse = true;
-		
 		void processInput();
 		
 		GLFWwindow* getWindow();
 		bool escape = false;
+		
+		Camera *camera;
 		
 	private:
 		
