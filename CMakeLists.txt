@@ -20,6 +20,7 @@ set(SOURCES
     src/RenderBase.cpp
     src/Renderer.cpp
     src/Camera.cpp
+    src/Node.cpp
     src/main.cpp
     # Add more source files here if needed
 )

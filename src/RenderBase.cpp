@@ -48,6 +48,9 @@ namespace tinypengine {
 		
 		//Create camera
 		camera = new Camera(m_width, m_height);
+		
+		// Create root Node
+		rootNode = new Node("root");
 
 		return 1;		
 	}
@@ -72,7 +75,10 @@ namespace tinypengine {
 			camera->render();
 			
 			// Draw cube
-			s_drawCube();
+			//s_drawCube();
+			
+			// Draw root Node
+			rootNode->draw();
 			
 			// Swap front and back buffers
 			glfwSwapBuffers(m_window);

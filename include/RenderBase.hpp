@@ -1,4 +1,3 @@
-
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include <GLFW/glfw3.h>
@@ -10,6 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include "Camera.hpp"
+#include "Node.hpp"
 
 namespace tinypengine {
 
@@ -35,6 +35,7 @@ namespace tinypengine {
 		bool escape = false;
 		
 		Camera *camera;
+		Node *rootNode;
 		
 	private:
 		
