@@ -27,10 +27,16 @@ namespace tinypengine {
 		virtual void draw();
 		virtual void drawCube();
 		
+		std::vector<glm::vec3> front, back, top, bottom, left, right;
+		std::vector<std::vector<glm::vec3>> faces;
+		std::vector<std::vector<glm::vec3>> generateVertices(int subdivisions);
+		virtual void drawCube(std::vector<std::vector<glm::vec3>>& vertices, float size);
+		
 		void normalize(GLfloat* v);
 		
 		void addNode(Node* node);
 		
 		bool debug = 0;
+		bool firstDraw = true;
 	};
 }

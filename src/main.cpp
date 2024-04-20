@@ -85,12 +85,12 @@ void init() {
 	debugNode->debug = true;
 	rootNode->addNode(debugNode);
 	
-	tinypengine::Node *testNode = new tinypengine::Node("test", glm::vec3(1, 1, 1));
-	testNode->debug = true;
-	rootNode->addNode(testNode);
+	//tinypengine::Node *testNode = new tinypengine::Node("test", glm::vec3(1, 1, 1));
+	//testNode->debug = true;
+	//rootNode->addNode(testNode);
 	
-	tinypengine::NodeSphere *ball = new tinypengine::NodeSphere("ball", glm::vec3(5, 5, 5));
-	rootNode->addNode(ball);
+	//tinypengine::NodeSphere *ball = new tinypengine::NodeSphere("ball", glm::vec3(5, 5, 5));
+	//rootNode->addNode(ball);
 }
 
 int main(int argc, char** argv) {
