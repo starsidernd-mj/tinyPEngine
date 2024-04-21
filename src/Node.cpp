@@ -15,7 +15,8 @@ namespace tinypengine {
 		this->name = name;
 		std::cout << "Creating Node[" << name << "]" << std::endl;
 		
-		faces = generateVertices(20);
+		faces = generateVertices(10);
+		debugPoints = generateFaces(faces, 2.0f, true);
 		std::cout << "Generating " << faces[0].size() << " vertices" << std::endl;
 	}
 	
@@ -28,7 +29,9 @@ namespace tinypengine {
 			// Generate cube vertices with 5 subdivisions
     		//std::vector<glm::vec3> vertices = generateVertices(2);
     		// Draw cube with size 1.0
-    		drawCube(faces, 2.0f);
+    		//generateFaces(faces, 2.0f, false);
+    		drawCubeO(debugPoints);
+    		//drawCube(faces, 2.0f, true);
 		}
 	
 		for(Node* i : n_children) {
@@ -45,7 +48,6 @@ namespace tinypengine {
 		std::vector<std::vector<glm::vec3>> vertices;
 		float step = 1.0f / subdivisions;
 		float sp = 0.5f;
-		//float step = 2.0f;
 		
 		//		y
 		//		|
@@ -107,18 +109,207 @@ namespace tinypengine {
 		vertices.push_back(left);
 		vertices.push_back(right);
 		
-		printVertices(front, "front");
-		printVertices(back, "back");
-		printVertices(top, "top");
-		printVertices(bottom, "bottom");
-		printVertices(left, "left");
-		printVertices(right, "right");
+		//printVertices(front, "front");
+		//printVertices(back, "back");
+		//printVertices(top, "top");
+		//printVertices(bottom, "bottom");
+		//printVertices(left, "left");
+		//printVertices(right, "right");
 		
 		//std::cout << "Generated " << vertices.size() << " vertices" << std::endl;
 		return vertices;
 	}
 	
-	void Node::drawCube(std::vector<std::vector<glm::vec3>> &faces, float size) {
+	std::vector<std::vector<glm::vec3>> Node::generateFaces(std::vector<std::vector<glm::vec3>> &faces, float size, bool norm) {
+		std::vector<glm::vec3> a1;
+		std::vector<glm::vec3> a2;
+		std::vector<glm::vec3> a3;
+		std::vector<glm::vec3> a4;
+		
+		glm::vec3 v1, v2, v3, v4;
+		
+		int subdivisions = sqrt(faces[0].size()) - 1;
+		float step = 1 + subdivisions;
+		
+		for(int j = 0; j < subdivisions; j++) {
+			for(int i = 0; i < subdivisions; i++) {
+				int idx0 = j+(i*step);
+				int idx1 = j+1+(i*step);
+				int idx2 = j+step+(i*step);
+				int idx3 = j+step+1+(i*step);
+				
+				// Front face
+				//glColor3f( 1.0f, 0.0f, 0.0f); // Red
+				v1 = (glm::vec3{faces[0][idx0].x*size, faces[0][idx0].y*size, faces[0][idx0].z*size});
+				v2 = (glm::vec3{faces[0][idx1].x*size, faces[0][idx1].y*size, faces[0][idx1].z*size});
+				v3 = (glm::vec3{faces[0][idx3].x*size, faces[0][idx3].y*size, faces[0][idx3].z*size});
+				v4 = (glm::vec3{faces[0][idx2].x*size, faces[0][idx2].y*size, faces[0][idx2].z*size});
+				
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
+				a1.push_back(v1);
+				a2.push_back(v2);
+				a3.push_back(v3);
+				a4.push_back(v4);
+				//drawQuad(v1, v2, v3, v4);
+		
+				// Back face
+				//glColor3f( 0.0f, 1.0f, 0.0f); // Green
+				v1 = (glm::vec3{faces[1][idx0].x*size, faces[1][idx0].y*size, faces[1][idx0].z*size});
+				v2 = (glm::vec3{faces[1][idx1].x*size, faces[1][idx1].y*size, faces[1][idx1].z*size});
+				v3 = (glm::vec3{faces[1][idx3].x*size, faces[1][idx3].y*size, faces[1][idx3].z*size});
+				v4 = (glm::vec3{faces[1][idx2].x*size, faces[1][idx2].y*size, faces[1][idx2].z*size});
+				
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
+				a1.push_back(v1);
+				a2.push_back(v2);
+				a3.push_back(v3);
+				a4.push_back(v4);
+				//drawQuad(v1, v2, v3, v4);
+				
+				// Top face
+				//glColor3f( 0.0f, 0.0f, 1.0f); // Blue
+				v1 = (glm::vec3{faces[2][idx0].x*size, faces[2][idx0].y*size, faces[2][idx0].z*size});
+				v2 = (glm::vec3{faces[2][idx1].x*size, faces[2][idx1].y*size, faces[2][idx1].z*size});
+				v3 = (glm::vec3{faces[2][idx3].x*size, faces[2][idx3].y*size, faces[2][idx3].z*size});
+				v4 = (glm::vec3{faces[2][idx2].x*size, faces[2][idx2].y*size, faces[2][idx2].z*size});
+				
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
+				a1.push_back(v1);
+				a2.push_back(v2);
+				a3.push_back(v3);
+				a4.push_back(v4);
+				//drawQuad(v1, v2, v3, v4);
+				
+				// Botton face
+				//glColor3f( 1.0f, 1.0f, 0.0f); // Yellow
+				v1 = (glm::vec3{faces[3][idx0].x*size, faces[3][idx0].y*size, faces[3][idx0].z*size});
+				v2 = (glm::vec3{faces[3][idx1].x*size, faces[3][idx1].y*size, faces[3][idx1].z*size});
+				v3 = (glm::vec3{faces[3][idx3].x*size, faces[3][idx3].y*size, faces[3][idx3].z*size});
+				v4 = (glm::vec3{faces[3][idx2].x*size, faces[3][idx2].y*size, faces[3][idx2].z*size});
+				
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
+				a1.push_back(v1);
+				a2.push_back(v2);
+				a3.push_back(v3);
+				a4.push_back(v4);
+				//drawQuad(v1, v2, v3, v4);
+				
+				// Left face
+				//glColor3f( 1.0f, 0.0f, 1.0f); // Magenta
+				v1 = (glm::vec3{faces[4][idx0].x*size, faces[4][idx0].y*size, faces[4][idx0].z*size});
+				v2 = (glm::vec3{faces[4][idx1].x*size, faces[4][idx1].y*size, faces[4][idx1].z*size});
+				v3 = (glm::vec3{faces[4][idx3].x*size, faces[4][idx3].y*size, faces[4][idx3].z*size});
+				v4 = (glm::vec3{faces[4][idx2].x*size, faces[4][idx2].y*size, faces[4][idx2].z*size});
+				
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
+				a1.push_back(v1);
+				a2.push_back(v2);
+				a3.push_back(v3);
+				a4.push_back(v4);
+				//drawQuad(v1, v2, v3, v4);
+				
+				// Right face
+				//glColor3f( 0.0f, 1.0f, 1.0f); // Cyan
+				v1 = (glm::vec3{faces[5][idx0].x*size, faces[5][idx0].y*size, faces[5][idx0].z*size});
+				v2 = (glm::vec3{faces[5][idx1].x*size, faces[5][idx1].y*size, faces[5][idx1].z*size});
+				v3 = (glm::vec3{faces[5][idx3].x*size, faces[5][idx3].y*size, faces[5][idx3].z*size});
+				v4 = (glm::vec3{faces[5][idx2].x*size, faces[5][idx2].y*size, faces[5][idx2].z*size});
+				
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
+				a1.push_back(v1);
+				a2.push_back(v2);
+				a3.push_back(v3);
+				a4.push_back(v4);
+				//drawQuad(v1, v2, v3, v4);
+			}
+		}
+		//drawCubeO(&v1, &v2, &v3, &v4);
+		//drawCubeO(v1, v2, v3, v4);
+		std::vector<std::vector<glm::vec3>> faceVecPoints = {a1, a2, a3, a4};
+		return faceVecPoints;
+	}
+	
+	//void Node::drawCubeO(std::vector<glm::vec3> v1, std::vector<glm::vec3> v2, std::vector<glm::vec3> v3, std::vector<glm::vec3> v4) {
+	void Node::drawCubeO(std::vector<std::vector<glm::vec3>> v0) {
+	
+		//std::cout << "test: " << v1[0].x << ", " << v1[0].y << ", " << v1[0].z << std::endl;
+		std::vector<glm::vec3> v1 = v0[0];
+		std::vector<glm::vec3> v2 = v0[1];
+		std::vector<glm::vec3> v3 = v0[2];
+		std::vector<glm::vec3> v4 = v0[3];
+	
+	
+		for(int i = 0; i < (int)v1.size(); i++) {
+			glBegin(GL_QUADS);
+			switch(i%6) {
+				case 0: {
+					glColor3f( 1.0f, 0.0f, 0.0f); // Red
+				} break;
+				case 1: {
+					glColor3f( 0.0f, 1.0f, 0.0f); // Green
+				} break;
+				case 2: {
+					glColor3f( 0.0f, 0.0f, 1.0f); // Blue
+				} break;
+				case 3: {
+					glColor3f( 1.0f, 1.0f, 0.0f); // Yellow
+				} break;
+				case 4: {
+					glColor3f( 1.0f, 0.0f, 1.0f); // Magenta
+				} break;
+				case 5: {
+					glColor3f( 0.0f, 1.0f, 1.0f); // Cyan
+				} break;
+			}
+			glVertex3f(v1[i].x, v1[i].y, v1[i].z);
+			glVertex3f(v2[i].x, v2[i].y, v2[i].z);
+			glVertex3f(v3[i].x, v3[i].y, v3[i].z);
+			glVertex3f(v4[i].x, v4[i].y, v4[i].z);
+			glEnd();
+			
+			/*glLineWidth(3.0f);
+			glColor3f(1.0f, 1.0f, 1.0f);
+			glBegin(GL_LINE_LOOP);
+			glVertex3f(v1[i].x, v1[i].y, v1[i].z);
+			glVertex3f(v2[i].x, v2[i].y, v2[i].z);
+			glVertex3f(v3[i].x, v3[i].y, v3[i].z);
+			glVertex3f(v4[i].x, v4[i].y, v4[i].z);
+			glEnd();*/
+		}
+	
+		/*glBegin(GL_QUADS);
+		glVertex3fv(v1);
+		glVertex3fv(v2);
+		glVertex3fv(v3);
+		glVertex3fv(v4);
+		glEnd();*/
+		
+		//draw lines around quad
+		/*glLineWidth(3.0f);
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glBegin(GL_LINE_LOOP);
+		glVertex3fv(v1);
+		glVertex3fv(v2);
+		glVertex3fv(v3);
+		glVertex3fv(v4);
+		glEnd();*/
+		
+		glFlush();
+	}
+	
+	void Node::drawCube(std::vector<std::vector<glm::vec3>> &faces, float size, bool norm) {
 		glm::vec3 v1;
 		glm::vec3 v2;
 		glm::vec3 v3;
@@ -141,7 +332,9 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[0][idx3].x*size, faces[0][idx3].y*size, faces[0][idx3].z*size};
 				v4 = glm::vec3{faces[0][idx2].x*size, faces[0][idx2].y*size, faces[0][idx2].z*size};
 				
-				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
 				drawQuad(v1, v2, v3, v4);
 		
 				// Back face
@@ -151,7 +344,9 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[1][idx3].x*size, faces[1][idx3].y*size, faces[1][idx3].z*size};
 				v4 = glm::vec3{faces[1][idx2].x*size, faces[1][idx2].y*size, faces[1][idx2].z*size};
 				
-				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
 				drawQuad(v1, v2, v3, v4);
 				
 				// Top face
@@ -161,7 +356,9 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[2][idx3].x*size, faces[2][idx3].y*size, faces[2][idx3].z*size};
 				v4 = glm::vec3{faces[2][idx2].x*size, faces[2][idx2].y*size, faces[2][idx2].z*size};
 				
-				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
 				drawQuad(v1, v2, v3, v4);
 				
 				// Botton face
@@ -171,7 +368,9 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[3][idx3].x*size, faces[3][idx3].y*size, faces[3][idx3].z*size};
 				v4 = glm::vec3{faces[3][idx2].x*size, faces[3][idx2].y*size, faces[3][idx2].z*size};
 				
-				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
 				drawQuad(v1, v2, v3, v4);
 				
 				// Left face
@@ -181,7 +380,9 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[4][idx3].x*size, faces[4][idx3].y*size, faces[4][idx3].z*size};
 				v4 = glm::vec3{faces[4][idx2].x*size, faces[4][idx2].y*size, faces[4][idx2].z*size};
 				
-				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
 				drawQuad(v1, v2, v3, v4);
 				
 				// Right face
@@ -191,7 +392,9 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[5][idx3].x*size, faces[5][idx3].y*size, faces[5][idx3].z*size};
 				v4 = glm::vec3{faces[5][idx2].x*size, faces[5][idx2].y*size, faces[5][idx2].z*size};
 				
-				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				if(norm) {
+					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
+				}
 				drawQuad(v1, v2, v3, v4);
 			}
 		}
@@ -234,6 +437,18 @@ namespace tinypengine {
 		glVertex3fv(v3);
 		glVertex3fv(v4);
 		glEnd();
+		
+		//draw lines around quad
+		/*glLineWidth(3.0f);
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glBegin(GL_LINE_LOOP);
+		glVertex3fv(v1);
+		glVertex3fv(v2);
+		glVertex3fv(v3);
+		glVertex3fv(v4);
+		glEnd();*/
+		
+		glFlush();
 	}
 	
 	void Node::drawQuad(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4) {

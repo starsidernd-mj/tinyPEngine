@@ -30,7 +30,12 @@ namespace tinypengine {
 		std::vector<glm::vec3> front, back, top, bottom, left, right;
 		std::vector<std::vector<glm::vec3>> faces;
 		std::vector<std::vector<glm::vec3>> generateVertices(int subdivisions);
-		virtual void drawCube(std::vector<std::vector<glm::vec3>>& vertices, float size);
+		//virtual void drawCube(std::vector<std::vector<glm::vec3>>& vertices, float size);
+		
+		std::vector<std::vector<glm::vec3>> generateFaces(std::vector<std::vector<glm::vec3>> &faces, float size, bool norm);
+		//void drawCubeO(std::vector<glm::vec3> v1, std::vector<glm::vec3> v2, std::vector<glm::vec3> v3, std::vector<glm::vec3> v4);
+		void drawCubeO(std::vector<std::vector<glm::vec3>> v0);
+		virtual void drawCube(std::vector<std::vector<glm::vec3>> &faces, float size, bool norm);
 		
 		void normalize(GLfloat* v);
 		//glm::vec3 normalizeQuad(glm::vec3 v);
@@ -43,5 +48,7 @@ namespace tinypengine {
 		
 		bool debug = 0;
 		bool firstDraw = true;
+		
+		std::vector<std::vector<glm::vec3>> debugPoints;
 	};
 }
