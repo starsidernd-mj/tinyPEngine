@@ -141,7 +141,7 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[0][idx3].x*size, faces[0][idx3].y*size, faces[0][idx3].z*size};
 				v4 = glm::vec3{faces[0][idx2].x*size, faces[0][idx2].y*size, faces[0][idx2].z*size};
 				
-				normalizeQuad(v1); normalizeQuad(v2); normalizeQuad(v3); normalizeQuad(v4);
+				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				drawQuad(v1, v2, v3, v4);
 		
 				// Back face
@@ -151,7 +151,7 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[1][idx3].x*size, faces[1][idx3].y*size, faces[1][idx3].z*size};
 				v4 = glm::vec3{faces[1][idx2].x*size, faces[1][idx2].y*size, faces[1][idx2].z*size};
 				
-				normalizeQuad(v1); normalizeQuad(v2); normalizeQuad(v3); normalizeQuad(v4);
+				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				drawQuad(v1, v2, v3, v4);
 				
 				// Top face
@@ -161,7 +161,7 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[2][idx3].x*size, faces[2][idx3].y*size, faces[2][idx3].z*size};
 				v4 = glm::vec3{faces[2][idx2].x*size, faces[2][idx2].y*size, faces[2][idx2].z*size};
 				
-				normalizeQuad(v1); normalizeQuad(v2); normalizeQuad(v3); normalizeQuad(v4);
+				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				drawQuad(v1, v2, v3, v4);
 				
 				// Botton face
@@ -171,7 +171,7 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[3][idx3].x*size, faces[3][idx3].y*size, faces[3][idx3].z*size};
 				v4 = glm::vec3{faces[3][idx2].x*size, faces[3][idx2].y*size, faces[3][idx2].z*size};
 				
-				normalizeQuad(v1); normalizeQuad(v2); normalizeQuad(v3); normalizeQuad(v4);
+				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				drawQuad(v1, v2, v3, v4);
 				
 				// Left face
@@ -181,7 +181,7 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[4][idx3].x*size, faces[4][idx3].y*size, faces[4][idx3].z*size};
 				v4 = glm::vec3{faces[4][idx2].x*size, faces[4][idx2].y*size, faces[4][idx2].z*size};
 				
-				normalizeQuad(v1); normalizeQuad(v2); normalizeQuad(v3); normalizeQuad(v4);
+				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				drawQuad(v1, v2, v3, v4);
 				
 				// Right face
@@ -191,7 +191,7 @@ namespace tinypengine {
 				v3 = glm::vec3{faces[5][idx3].x*size, faces[5][idx3].y*size, faces[5][idx3].z*size};
 				v4 = glm::vec3{faces[5][idx2].x*size, faces[5][idx2].y*size, faces[5][idx2].z*size};
 				
-				normalizeQuad(v1); normalizeQuad(v2); normalizeQuad(v3); normalizeQuad(v4);
+				normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				drawQuad(v1, v2, v3, v4);
 			}
 		}
@@ -206,15 +206,15 @@ namespace tinypengine {
 		v[2] /= length;
 	}
 	
-	/*NOT WORKING DUE TO PACKED glm:vec3 conversion issue, current one used is not overriding the pointed value so it's a wasted operation
+	/*NOT WORKING DUE TO PACKED glm:vec3 conversion issue, current one used is not overriding the pointed value so it's a wasted operation*/
 	void Node::normalizeQuad(glm::vec3 *v) {
 		GLfloat length = sqrt(v->x*v->x + v->y*v->y + v->z*v->z);
 		v->x /= length;
 		v->y /= length;
 		v->z /= length;
-	}*/
+	}//*/
 	
-	glm::vec3 Node::normalizeQuad(glm::vec3 v) {
+	/*glm::vec3 Node::normalizeQuad(glm::vec3 v) {
 		GLfloat vf[3] = {v.x, v.y, v.z};
 		GLfloat length = sqrt(vf[0]*vf[0] + vf[1]*vf[1] + vf[2]*vf[2]);
 		//normalizeQuad(vf);
@@ -225,7 +225,7 @@ namespace tinypengine {
 		
 		glm::vec3 vv = {vf[0], vf[1], vf[2]};
 		return vv;
-	}
+	}*/
 	
 	void Node::drawQuad(GLfloat* v1, GLfloat* v2, GLfloat* v3, GLfloat* v4) {
 		glBegin(GL_QUADS);
