@@ -32,7 +32,7 @@ namespace tinypengine {
 		// Set up projection matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective((float)fov, (float)m_width / (float)m_height, 0.1f, 100.0f);
+		gluPerspective((float)fov, (float)m_width / (float)m_height, (float)near, (float)far);
 		
 		// Set up modelview matrix
 		glMatrixMode(GL_MODELVIEW);

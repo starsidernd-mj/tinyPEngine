@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Renderer.hpp"
-//#include "Camera.hpp"
-//#include "NodeSphere.hpp"
+#include "Camera.hpp"
 
 tinypengine::Renderer *renderer;
 tinypengine::Camera *camera;
@@ -81,10 +80,11 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
 void init() {
 	rootNode = renderer->getRootNode();
 	
-	tinypengine::Node *debugNode = new tinypengine::Node("debug", glm::vec3(0, 0, 0));
-	debugNode->debug = true;
-	rootNode->addNode(debugNode);
+	//tinypengine::Node *debugNode = new tinypengine::Node("debug", glm::vec3(0, 0, 0));
+	//rootNode->addNode(debugNode);
 	
+	tinypengine::NodeCube *cubeNode = new tinypengine::NodeCube("cube", glm::vec3(0,0,0), 10, 2.0f, true);
+	rootNode->addNode(cubeNode);
 	//tinypengine::Node *testNode = new tinypengine::Node("test", glm::vec3(1, 1, 1));
 	//testNode->debug = true;
 	//rootNode->addNode(testNode);
@@ -115,6 +115,9 @@ int main(int argc, char** argv) {
 	
 	// main init
 	init();
+	
+	// set move speed
+	renderer->camera->Speed = 0.25f;
     
     renderer->renderLoop();
     renderer->cleanup();

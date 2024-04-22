@@ -1,3 +1,6 @@
+#ifndef RENDERBASE_H
+#define RENDERBASE_H
+
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include <GLFW/glfw3.h>
@@ -9,8 +12,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include "Camera.hpp"
-//#include "Node.hpp"
-#include "NodeSphere.hpp"
+#include "Node.hpp"
+//#include "NodeSphere.hpp"
+#include "NodeCube.hpp"
 
 namespace tinypengine {
 
@@ -51,3 +55,5 @@ namespace tinypengine {
 		char** m_argv;
 	};
 }
+
+#endif

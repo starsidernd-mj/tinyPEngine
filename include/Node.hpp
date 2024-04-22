@@ -1,3 +1,6 @@
+#ifndef NODE_H
+#define NODE_H
+
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -25,30 +28,9 @@ namespace tinypengine {
 		void init(const std::string& name);
 		virtual void update();
 		virtual void draw();
-		virtual void drawCube();
-		
-		std::vector<glm::vec3> front, back, top, bottom, left, right;
-		std::vector<std::vector<glm::vec3>> faces;
-		std::vector<std::vector<glm::vec3>> generateVertices(int subdivisions);
-		//virtual void drawCube(std::vector<std::vector<glm::vec3>>& vertices, float size);
-		
-		std::vector<std::vector<glm::vec3>> generateFaces(std::vector<std::vector<glm::vec3>> &faces, float size, bool norm);
-		//void drawCubeO(std::vector<glm::vec3> v1, std::vector<glm::vec3> v2, std::vector<glm::vec3> v3, std::vector<glm::vec3> v4);
-		void drawCubeO(std::vector<std::vector<glm::vec3>> v0);
-		virtual void drawCube(std::vector<std::vector<glm::vec3>> &faces, float size, bool norm);
-		
-		void normalize(GLfloat* v);
-		//glm::vec3 normalizeQuad(glm::vec3 v);
-		void normalizeQuad(glm::vec3 *v);
-		void drawQuad(GLfloat* v1, GLfloat* v2, GLfloat* v3, GLfloat* v4);
-		void drawQuad(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, glm::vec3 v4);
-		void printVertices(std::vector<glm::vec3> fc, std::string name);
 		
 		void addNode(Node* node);
-		
-		bool debug = 0;
-		bool firstDraw = true;
-		
-		std::vector<std::vector<glm::vec3>> debugPoints;
 	};
 }
+
+#endif

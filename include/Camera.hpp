@@ -1,3 +1,6 @@
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include <GLFW/glfw3.h>
@@ -25,6 +28,9 @@ namespace tinypengine {
 		float Sensitivity = 0.05f;
 		bool mouseInvert = false;
 		
+		GLfloat near = 0.1;
+		GLfloat far = 1000.0f;
+		
 		GLfloat pitch = 0.0f;
 		GLfloat yaw = -90.0f;
 		GLfloat fov = 45.0f;
@@ -44,3 +50,5 @@ namespace tinypengine {
 	
 	};
 }
+
+#endif

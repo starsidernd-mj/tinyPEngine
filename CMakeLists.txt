@@ -16,7 +16,7 @@ find_package(GLUT REQUIRED)
 # Add source files
 set(SOURCES
     src/Node.cpp
-    src/NodeSphere.cpp
+    src/NodeCube.cpp
     src/Timer.cpp
     src/RenderBase.cpp
     src/Renderer.cpp
