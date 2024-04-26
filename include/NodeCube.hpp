@@ -13,6 +13,8 @@
 #include "Node.hpp"
 
 
+
+
 namespace tinypengine {
 
 	class NodeCube : public Node {
@@ -25,6 +27,8 @@ namespace tinypengine {
 		bool n_norm = false;
 		int n_subdiv = 1;
 		float n_size = 1.0f;
+		
+		GLuint textureID;
 	
 	public:
 		NodeCube(const std::string& name, glm::vec3 pos, int subdiv, float size, bool norm);
@@ -51,6 +55,8 @@ namespace tinypengine {
 		bool firstDraw = true;
 		
 		std::vector<std::vector<glm::vec3>> debugPoints;
+		
+		GLuint loadTexture(const char* filename);
 	};
 }
 

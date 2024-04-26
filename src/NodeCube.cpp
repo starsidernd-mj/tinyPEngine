@@ -1,6 +1,9 @@
 
 #include "NodeCube.hpp"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 namespace tinypengine {
 
 	NodeCube::NodeCube(const std::string& name, glm::vec3 pos, int subdiv, float size, bool norm) : Node(name, pos) {
@@ -21,7 +24,8 @@ namespace tinypengine {
 		
 		faces = generateVertices(this->n_subdiv);
 		debugPoints = generateFaces(faces, this->n_size, this->n_norm);
-		std::cout << "Generating " << faces[0].size() << " vertices" << std::endl;
+		std::cout << "Generating " << faces[0].size() << " vertices and " << debugPoints[0].size() << " faces" << std::endl;
+		textureID = loadTexture("../assets/textures/grid.jpg");
 	}
 	
 	void NodeCube::update() {}
@@ -234,10 +238,9 @@ namespace tinypengine {
 		std::vector<glm::vec3> v3 = v0[2];
 		std::vector<glm::vec3> v4 = v0[3];
 	
-	
 		for(int i = 0; i < (int)v1.size(); i++) {
-			glBegin(GL_QUADS);
-			switch(i%6) {
+			//glBegin(GL_QUADS);
+			/*switch(i%6) {
 				case 0: {
 					glColor3f( 1.0f, 0.0f, 0.0f); // Red
 				} break;
@@ -256,12 +259,23 @@ namespace tinypengine {
 				case 5: {
 					glColor3f( 0.0f, 1.0f, 1.0f); // Cyan
 				} break;
-			}
-			glVertex3f(v1[i].x, v1[i].y, v1[i].z);
+			}*/
+			//draw texture
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, textureID);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 1.0f/10); glVertex3f(v1[i].x, v1[i].y, v1[i].z);
+			glTexCoord2f(1.0f/10, 1.0f/10); glVertex3f(v2[i].x, v2[i].y, v2[i].z);
+			glTexCoord2f(1.0f/10, 0.0f); glVertex3f(v3[i].x, v3[i].y, v3[i].z);
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(v4[i].x, v4[i].y, v4[i].z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+			
+			/*glVertex3f(v1[i].x, v1[i].y, v1[i].z);
 			glVertex3f(v2[i].x, v2[i].y, v2[i].z);
 			glVertex3f(v3[i].x, v3[i].y, v3[i].z);
 			glVertex3f(v4[i].x, v4[i].y, v4[i].z);
-			glEnd();
+			glEnd();*/
 			
 			/*glLineWidth(3.0f);
 			glColor3f(1.0f, 1.0f, 1.0f);
@@ -291,4 +305,35 @@ namespace tinypengine {
 		
 		std::cout << "Vertices done" << std::endl;
 	}
+	
+	GLuint NodeCube::loadTexture(const char* filename) {
+		// Load image using STB
+		int width, height, channels;
+		unsigned char* image = stbi_load(filename, &width, &height, &channels, STBI_rgb);
+		
+		std::cout << "Loading texture " << filename << std::endl;
+
+		if (image == nullptr) {
+		    // Error handling
+		    std::cout << "Image nullptr error" << std::endl;
+		    return (GLuint)NULL;
+		}
+
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		
+		// Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+
+		stbi_image_free(image);
+		
+		std::cout << "texutre id: " << textureID << ", width[" << width << "], height[" << height << "], channels[" << channels << "]" << std::endl;
+		
+		return textureID;
+    }
 }
