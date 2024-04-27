@@ -83,7 +83,7 @@ void init() {
 	//tinypengine::Node *debugNode = new tinypengine::Node("debug", glm::vec3(0, 0, 0));
 	//rootNode->addNode(debugNode);
 	
-	tinypengine::NodeCube *cubeNode = new tinypengine::NodeCube("cube", glm::vec3(0,0,0), 1, 4.0f, true);
+	tinypengine::NodeCube *cubeNode = new tinypengine::NodeCube("cube", glm::vec3(0,0,0), 10, 4.0f, true);
 	rootNode->addNode(cubeNode);
 	//tinypengine::Node *testNode = new tinypengine::Node("test", glm::vec3(1, 1, 1));
 	//testNode->debug = true;

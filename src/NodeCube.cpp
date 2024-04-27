@@ -237,6 +237,10 @@ namespace tinypengine {
 		std::vector<glm::vec3> v2 = v0[1];
 		std::vector<glm::vec3> v3 = v0[2];
 		std::vector<glm::vec3> v4 = v0[3];
+		
+		int line_cnt = 0;
+		GLfloat h_step = 0.0f;
+		GLfloat v_step = 0.0f;
 	
 		for(int i = 0; i < (int)v1.size(); i++) {
 			//glBegin(GL_QUADS);
@@ -263,13 +267,24 @@ namespace tinypengine {
 			//draw texture
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, textureID);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 1.0f/10); glVertex3f(v1[i].x, v1[i].y, v1[i].z);
-			glTexCoord2f(1.0f/10, 1.0f/10); glVertex3f(v2[i].x, v2[i].y, v2[i].z);
-			glTexCoord2f(1.0f/10, 0.0f); glVertex3f(v3[i].x, v3[i].y, v3[i].z);
-			glTexCoord2f(0.0f, 0.0f); glVertex3f(v4[i].x, v4[i].y, v4[i].z);
+			glBegin(GL_QUADS);			
+			glTexCoord2f(0.0f+v_step, 0.1f+h_step); glVertex3f(v1[i].x, v1[i].y, v1[i].z);
+			glTexCoord2f(0.1f+v_step, 0.1f+h_step); glVertex3f(v2[i].x, v2[i].y, v2[i].z);
+			glTexCoord2f(0.1f+v_step, 0.0f+h_step); glVertex3f(v3[i].x, v3[i].y, v3[i].z);
+			glTexCoord2f(0.0f+v_step, 0.0f+h_step); glVertex3f(v4[i].x, v4[i].y, v4[i].z);
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
+			
+			line_cnt++;
+			if(line_cnt >= 10) {
+				v_step += 0.1f;
+				h_step = 0.0f;
+				line_cnt = 0;
+			} else {
+				h_step += 0.1f;
+			}
+			
+			
 			
 			/*glVertex3f(v1[i].x, v1[i].y, v1[i].z);
 			glVertex3f(v2[i].x, v2[i].y, v2[i].z);
@@ -277,8 +292,8 @@ namespace tinypengine {
 			glVertex3f(v4[i].x, v4[i].y, v4[i].z);
 			glEnd();*/
 			
-			/*glLineWidth(3.0f);
-			glColor3f(1.0f, 1.0f, 1.0f);
+			/*glLineWidth(1.0f);
+			glColor3f(0.25f, 0.33f, 0.12f);
 			glBegin(GL_LINE_LOOP);
 			glVertex3f(v1[i].x, v1[i].y, v1[i].z);
 			glVertex3f(v2[i].x, v2[i].y, v2[i].z);
@@ -323,10 +338,10 @@ namespace tinypengine {
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		
 		// Set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 
