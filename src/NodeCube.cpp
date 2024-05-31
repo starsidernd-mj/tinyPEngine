@@ -131,98 +131,98 @@ namespace tinypengine {
 				
 				// Front face
 				//glColor3f( 1.0f, 0.0f, 0.0f); // Red
-				v1 = (glm::vec3{faces[0][idx0].x*size, faces[0][idx0].y*size, faces[0][idx0].z*size});
-				v2 = (glm::vec3{faces[0][idx1].x*size, faces[0][idx1].y*size, faces[0][idx1].z*size});
-				v3 = (glm::vec3{faces[0][idx3].x*size, faces[0][idx3].y*size, faces[0][idx3].z*size});
-				v4 = (glm::vec3{faces[0][idx2].x*size, faces[0][idx2].y*size, faces[0][idx2].z*size});
+				v1 = (glm::vec3{faces[0][idx0].x, faces[0][idx0].y, faces[0][idx0].z});
+				v2 = (glm::vec3{faces[0][idx1].x, faces[0][idx1].y, faces[0][idx1].z});
+				v3 = (glm::vec3{faces[0][idx3].x, faces[0][idx3].y, faces[0][idx3].z});
+				v4 = (glm::vec3{faces[0][idx2].x, faces[0][idx2].y, faces[0][idx2].z});
 				
 				if(this->n_norm) {
 					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				}
-				a1.push_back(v1);
-				a2.push_back(v2);
-				a3.push_back(v3);
-				a4.push_back(v4);
+				a1.push_back(v1*size);
+				a2.push_back(v2*size);
+				a3.push_back(v3*size);
+				a4.push_back(v4*size);
 				//drawQuad(v1, v2, v3, v4);
 		
 				// Back face
 				//glColor3f( 0.0f, 1.0f, 0.0f); // Green
-				v1 = (glm::vec3{faces[1][idx0].x*size, faces[1][idx0].y*size, faces[1][idx0].z*size});
-				v2 = (glm::vec3{faces[1][idx1].x*size, faces[1][idx1].y*size, faces[1][idx1].z*size});
-				v3 = (glm::vec3{faces[1][idx3].x*size, faces[1][idx3].y*size, faces[1][idx3].z*size});
-				v4 = (glm::vec3{faces[1][idx2].x*size, faces[1][idx2].y*size, faces[1][idx2].z*size});
+				v1 = (glm::vec3{faces[1][idx0].x, faces[1][idx0].y, faces[1][idx0].z});
+				v2 = (glm::vec3{faces[1][idx1].x, faces[1][idx1].y, faces[1][idx1].z});
+				v3 = (glm::vec3{faces[1][idx3].x, faces[1][idx3].y, faces[1][idx3].z});
+				v4 = (glm::vec3{faces[1][idx2].x, faces[1][idx2].y, faces[1][idx2].z});
 				
 				if(this->n_norm) {
 					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				}
-				a1.push_back(v1);
-				a2.push_back(v2);
-				a3.push_back(v3);
-				a4.push_back(v4);
+				a1.push_back(v1*size);
+				a2.push_back(v2*size);
+				a3.push_back(v3*size);
+				a4.push_back(v4*size);
 				//drawQuad(v1, v2, v3, v4);
 				
 				// Top face
 				//glColor3f( 0.0f, 0.0f, 1.0f); // Blue
-				v1 = (glm::vec3{faces[2][idx0].x*size, faces[2][idx0].y*size, faces[2][idx0].z*size});
-				v2 = (glm::vec3{faces[2][idx1].x*size, faces[2][idx1].y*size, faces[2][idx1].z*size});
-				v3 = (glm::vec3{faces[2][idx3].x*size, faces[2][idx3].y*size, faces[2][idx3].z*size});
-				v4 = (glm::vec3{faces[2][idx2].x*size, faces[2][idx2].y*size, faces[2][idx2].z*size});
+				v1 = (glm::vec3{faces[2][idx0].x, faces[2][idx0].y, faces[2][idx0].z});
+				v2 = (glm::vec3{faces[2][idx1].x, faces[2][idx1].y, faces[2][idx1].z});
+				v3 = (glm::vec3{faces[2][idx3].x, faces[2][idx3].y, faces[2][idx3].z});
+				v4 = (glm::vec3{faces[2][idx2].x, faces[2][idx2].y, faces[2][idx2].z});
 				
 				if(this->n_norm) {
 					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				}
-				a1.push_back(v1);
-				a2.push_back(v2);
-				a3.push_back(v3);
-				a4.push_back(v4);
+				a1.push_back(v1*size);
+				a2.push_back(v2*size);
+				a3.push_back(v3*size);
+				a4.push_back(v4*size);
 				//drawQuad(v1, v2, v3, v4);
 				
 				// Botton face
 				//glColor3f( 1.0f, 1.0f, 0.0f); // Yellow
-				v1 = (glm::vec3{faces[3][idx0].x*size, faces[3][idx0].y*size, faces[3][idx0].z*size});
-				v2 = (glm::vec3{faces[3][idx1].x*size, faces[3][idx1].y*size, faces[3][idx1].z*size});
-				v3 = (glm::vec3{faces[3][idx3].x*size, faces[3][idx3].y*size, faces[3][idx3].z*size});
-				v4 = (glm::vec3{faces[3][idx2].x*size, faces[3][idx2].y*size, faces[3][idx2].z*size});
+				v1 = (glm::vec3{faces[3][idx0].x, faces[3][idx0].y, faces[3][idx0].z});
+				v2 = (glm::vec3{faces[3][idx1].x, faces[3][idx1].y, faces[3][idx1].z});
+				v3 = (glm::vec3{faces[3][idx3].x, faces[3][idx3].y, faces[3][idx3].z});
+				v4 = (glm::vec3{faces[3][idx2].x, faces[3][idx2].y, faces[3][idx2].z});
 				
 				if(this->n_norm) {
 					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				}
-				a1.push_back(v1);
-				a2.push_back(v2);
-				a3.push_back(v3);
-				a4.push_back(v4);
+				a1.push_back(v1*size);
+				a2.push_back(v2*size);
+				a3.push_back(v3*size);
+				a4.push_back(v4*size);
 				//drawQuad(v1, v2, v3, v4);
 				
 				// Left face
 				//glColor3f( 1.0f, 0.0f, 1.0f); // Magenta
-				v1 = (glm::vec3{faces[4][idx0].x*size, faces[4][idx0].y*size, faces[4][idx0].z*size});
-				v2 = (glm::vec3{faces[4][idx1].x*size, faces[4][idx1].y*size, faces[4][idx1].z*size});
-				v3 = (glm::vec3{faces[4][idx3].x*size, faces[4][idx3].y*size, faces[4][idx3].z*size});
-				v4 = (glm::vec3{faces[4][idx2].x*size, faces[4][idx2].y*size, faces[4][idx2].z*size});
+				v1 = (glm::vec3{faces[4][idx0].x, faces[4][idx0].y, faces[4][idx0].z});
+				v2 = (glm::vec3{faces[4][idx1].x, faces[4][idx1].y, faces[4][idx1].z});
+				v3 = (glm::vec3{faces[4][idx3].x, faces[4][idx3].y, faces[4][idx3].z});
+				v4 = (glm::vec3{faces[4][idx2].x, faces[4][idx2].y, faces[4][idx2].z});
 				
 				if(this->n_norm) {
 					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				}
-				a1.push_back(v1);
-				a2.push_back(v2);
-				a3.push_back(v3);
-				a4.push_back(v4);
+				a1.push_back(v1*size);
+				a2.push_back(v2*size);
+				a3.push_back(v3*size);
+				a4.push_back(v4*size);
 				//drawQuad(v1, v2, v3, v4);
 				
 				// Right face
 				//glColor3f( 0.0f, 1.0f, 1.0f); // Cyan
-				v1 = (glm::vec3{faces[5][idx0].x*size, faces[5][idx0].y*size, faces[5][idx0].z*size});
-				v2 = (glm::vec3{faces[5][idx1].x*size, faces[5][idx1].y*size, faces[5][idx1].z*size});
-				v3 = (glm::vec3{faces[5][idx3].x*size, faces[5][idx3].y*size, faces[5][idx3].z*size});
-				v4 = (glm::vec3{faces[5][idx2].x*size, faces[5][idx2].y*size, faces[5][idx2].z*size});
+				v1 = (glm::vec3{faces[5][idx0].x, faces[5][idx0].y, faces[5][idx0].z});
+				v2 = (glm::vec3{faces[5][idx1].x, faces[5][idx1].y, faces[5][idx1].z});
+				v3 = (glm::vec3{faces[5][idx3].x, faces[5][idx3].y, faces[5][idx3].z});
+				v4 = (glm::vec3{faces[5][idx2].x, faces[5][idx2].y, faces[5][idx2].z});
 				
 				if(this->n_norm) {
 					normalizeQuad(&v1); normalizeQuad(&v2); normalizeQuad(&v3); normalizeQuad(&v4);
 				}
-				a1.push_back(v1);
-				a2.push_back(v2);
-				a3.push_back(v3);
-				a4.push_back(v4);
+				a1.push_back(v1*size);
+				a2.push_back(v2*size);
+				a3.push_back(v3*size);
+				a4.push_back(v4*size);
 				//drawQuad(v1, v2, v3, v4);
 			}
 		}

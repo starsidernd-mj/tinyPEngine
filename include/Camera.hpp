@@ -24,7 +24,7 @@ namespace tinypengine {
 		glm::vec3 Right 	= glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec3 Front		= glm::vec3(0.0f, 0.0f, 0.0f);
 		
-		float Speed = 0.1f;
+		float Speed = 0.025f;
 		float Sensitivity = 0.05f;
 		bool mouseInvert = false;
 		

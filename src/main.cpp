@@ -83,7 +83,7 @@ void init() {
 	//tinypengine::Node *debugNode = new tinypengine::Node("debug", glm::vec3(0, 0, 0));
 	//rootNode->addNode(debugNode);
 	
-	tinypengine::NodeCube *cubeNode = new tinypengine::NodeCube("cube", glm::vec3(0,0,0), 10, 4.0f, true);
+	tinypengine::NodeCube *cubeNode = new tinypengine::NodeCube("cube", glm::vec3(0,0,0), 10, 2.0f, true);
 	rootNode->addNode(cubeNode);
 	//tinypengine::Node *testNode = new tinypengine::Node("test", glm::vec3(1, 1, 1));
 	//testNode->debug = true;
@@ -117,7 +117,7 @@ int main(int argc, char** argv) {
 	init();
 	
 	// set move speed
-	renderer->camera->Speed = 0.25f;
+	renderer->camera->Speed = 0.025f;
     
     renderer->renderLoop();
     renderer->cleanup();
